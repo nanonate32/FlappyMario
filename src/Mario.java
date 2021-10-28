@@ -11,7 +11,7 @@ public class Mario extends FlappyObject {
 		public static boolean gotImage = false;	
 		Mario(int x, int y, int width, int height) {
 			super(x, y, width, height);
-			
+			speed = 1;
 			jumpHeight = 1;
 			if (needImage) {
 			    loadImage ("MarioKart.png");
@@ -30,7 +30,11 @@ public class Mario extends FlappyObject {
 		    }
 		}
 	void update() {
-		y+=jumpHeight;
+		
+		y+=velocity;
+		x+=speed;
+		velocity+=1;
+		
 		super.update();
 	}
 	void draw(Graphics g) {

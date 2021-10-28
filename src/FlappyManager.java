@@ -12,67 +12,60 @@ public class FlappyManager implements ActionListener {
 
 	 Mario mario;
 	int score = 0;
-	List<Projectile> projectiles = new ArrayList<Projectile>();
-	ArrayList<Alien> aliens = new ArrayList<Alien>();
+	
+	ArrayList<Pipe> pipes = new ArrayList<Pipe>();
 	
 	Random random = new Random();
 
-	FlappyManager(RocketShip rocket) {
-		//this.rocket = rocket;
+	FlappyManager(Mario mario) {
+		this.mario = mario;
 	}
 
-	void addProjectile(Projectile projectile) {
-		projectiles.add(projectile);
-	}
 
-	void addAlien() {
-		aliens.add(new Alien(random.nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+	void addPipes() {
+		pipes.add(new Pipe(FlappyMario.WIDTH, 0, 50, random.nextInt(600) + 100));
+		pipes.add(new Pipe(FlappyMario.WIDTH, 800, 50, random.nextInt(200) + 700));
 	}
 
 	void update() {
-		for (int i = 0; i < aliens.size(); i++) {
-			aliens.get(i).update();
-			if (aliens.get(i).y > LeagueInvaders.HEIGHT) {
-				aliens.get(i).isActive = false;
-
+		for (int i = 0; i < pipes.size(); i++) {
+			pipes.get(i).update();
+			if (pipes.get(i).x > FlappyMario.WIDTH) {
+				pipes.get(i).x= 200;
+             
 			}
 
 		}
-		for (int i = 0; i < projectiles.size(); i++) {
-			projectiles.get(i).update();
-			if (projectiles.get(i).y > LeagueInvaders.HEIGHT) {
-				projectiles.get(i).isActive = false;
-			}
-		}
-	//	rocket.update();
+	
+		mario.update();
       checkCollision();
       purgeObjects();
 	}
 
 	void draw(Graphics g) {
-		//rocket.draw(g);
-		for (int i = 0; i < aliens.size(); i++) {
-			aliens.get(i).draw(g);
+		mario.draw(g);
+		for (int i = 0; i < pipes.size(); i++) {
+			pipes.get(i).draw(g);
 		}
-		for (int i = 0; i < projectiles.size(); i++) {
-			projectiles.get(i).draw(g);
+			
 		}
-	}
+		
+	
 
 	void purgeObjects() {
-		for (int i = 0; i < aliens.size(); i++) {
+		for (int i = 0; i < pipes.size(); i++) {
 
-			if (aliens.get(i).isActive == false) {
-				aliens.remove(i);
+			if (pipes.get(i).isActive == false) {
+				pipes.remove(i);
 
 			}
 
 		}
 
-		for (int i = 0; i < projectiles.size(); i++) {
+		for (int i = 0; i < pipes.size(); i++) {
 
-			if (projectiles.get(i).isActive == false) {
-				projectiles.remove(i);
+			if (pipes.get(i).isActive == false) {
+				pipes.remove(i);
 
 			}
 
@@ -82,26 +75,22 @@ public class FlappyManager implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		addAlien();
+		addPipes();
 		
 	}
 
 	void checkCollision() {
-		for (int i = 0; i < aliens.size(); i++) {
-		//	if (rocket.collisionBox.intersects(aliens.get(i).collisionBox)) {
-		//	mario.isActive = false;
-                aliens.get(i).isActive = false;
-		//	}
-			for (int j = 0; j < projectiles.size(); j++) {
-				if (projectiles.get(j).collisionBox.intersects(aliens.get(i).collisionBox)) {
-                   projectiles.get(j).isActive = false;
-                   aliens.get(i).isActive = false;
+		
+			for (int j = 0; j < pipes.size(); j++) {
+				if (pipes.get(j).collisionBox.intersects(mario.collisionBox)) {
+                   pipes.get(j).isActive = false;
+                   mario.isActive = false;
                    score++;
 				}
 				
 			}
 		}
-	}
+	
 	public int getScore() {
 	return score;	
 	}

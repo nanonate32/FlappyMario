@@ -1,5 +1,6 @@
 
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,48 +15,26 @@ public class FlappyMario extends JFrame {
 	public final static int HEIGHT = 800;
 	public final static int WIDTH = 500;
 	
-	GamePanel game = new GamePanel();
+	FlappyPanel game = new FlappyPanel();
 	JFrame frame = new JFrame();
-	JPanel panel = new JPanel();
-	JLabel label = new JLabel();
-	JLabel pipe = new JLabel();
-	JLabel Mariokart = new JLabel();
-	
-	
-	
-	public void run() {
-		BufferedImage player = null;
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		 frame.addKeyListener(game);
-		try {
-			player = ImageIO.read(this.getClass().getResourceAsStream("MarioKart.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		label.setIcon(new ImageIcon(player));
-		BufferedImage pipe = null;
-		try {
-			pipe = ImageIO.read(this.getClass().getResourceAsStream("pipe.jpeg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public FlappyMario() {
 		
-		
-	frame.add(panel);	
-	panel.add(label);
 	
-	frame.setVisible(true);
-	frame.pack();
 
+    frame.addKeyListener(game);
+    frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+    frame.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    
+    frame.pack();
 	
-	
-}
-void drawMenuState(Graphics g) {
-	g.drawString("Flappy Mario", 40,50);
-	
-}
+	}
+	public static void main(String[] args) {
+		FlappyMario flappy = new FlappyMario();
+		flappy.setup();
+		}
+
+
+
 	
 	void setup() {
 		frame.add(game);
