@@ -23,8 +23,18 @@ public class FlappyManager implements ActionListener {
 
 
 	void addPipes() {
-		pipes.add(new Pipe(FlappyMario.WIDTH, 0, 50, random.nextInt(600) + 100));
-		pipes.add(new Pipe(FlappyMario.WIDTH, 800, 50, random.nextInt(200) + 700));
+		int pipeHeight1 = random.nextInt(400) + 100;
+		int pipeHeight2 = pipeHeight1 + 200;
+	
+		pipes.add(new Pipe(FlappyMario.WIDTH, 0, 50, pipeHeight1  ));
+		pipes.add(new Pipe(FlappyMario.WIDTH, pipeHeight2, 50, 1000  ));
+		if(pipeHeight1 > 800 - pipeHeight2) {
+			
+		}
+			
+	    
+		
+		
 	}
 
 	void update() {

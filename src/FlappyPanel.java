@@ -92,7 +92,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState == GAME) {
 
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-
+              mario.velocity -= 5; 
 			}
 		}
 
@@ -120,7 +120,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
-		pipeSpawn = new Timer(5000, manager);
+		pipeSpawn = new Timer(7000, manager);
 		pipeSpawn.start();
 	}
 

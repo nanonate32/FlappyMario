@@ -32,7 +32,7 @@ public class Mario extends FlappyObject {
 	void update() {
 		
 		y+=velocity;
-		x+=speed;
+		
 		velocity+=1;
 		
 		super.update();
