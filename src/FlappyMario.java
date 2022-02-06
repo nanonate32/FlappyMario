@@ -22,7 +22,7 @@ public class FlappyMario extends JFrame {
 	
 
     frame.addKeyListener(game);
-    frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
     
     frame.pack();
@@ -39,7 +39,7 @@ public class FlappyMario extends JFrame {
 	void setup() {
 		frame.add(game);
     	frame.setVisible(true);
-    	frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.pack();
     	
     	

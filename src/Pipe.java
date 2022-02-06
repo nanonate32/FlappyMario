@@ -35,10 +35,10 @@ void update() {
 }
 void draw(Graphics g) {
 	if (gotImage) {
-		g.drawImage(image, x, y, width, height, null);
+		g.drawImage(image, (int) x, (int) y, width, height, null);
 	} else {
 		g.setColor(Color.ORANGE);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int) x, (int) y, width, height);
 	}
 }
 

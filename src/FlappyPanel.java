@@ -21,12 +21,15 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	Mario mario;
 
 	final static int MENU = 0;
-	final static int GAME = 1;
-	final static int END = 2;
+	final static int TUTORIAL = 1;
+	final static int GAME = 2;
+	final static int END = 3;
 	Font titleFont;
 	Font menuFont;
 	static int currentState = MENU;
-	Timer pipeSpawn;
+	static Timer pipeSpawn;
+	static Timer fireballSpawn;
+	Timer frameDraw;
 
 	public FlappyPanel() {
 		if (needImage) {
@@ -41,8 +44,6 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		frameDraw.start();
 
 	}
-
-	Timer frameDraw;
 
 	void loadImage(String imageFile) {
 		if (needImage) {
@@ -59,6 +60,8 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(Graphics g) {
 		if (currentState == MENU) {
 			drawMenuState(g);
+		} else if (currentState == TUTORIAL) {
+			drawTutorialState(g);
 		} else if (currentState == GAME) {
 			drawGameState(g);
 		} else if (currentState == END) {
@@ -89,12 +92,24 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 
 			}
 		}
-		if (currentState == GAME) {
 
-			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-              mario.velocity -= 5; 
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (currentState == MENU ) {
+				currentState = TUTORIAL;
+			} else {
+				mario.velocity = -10;
 			}
 		}
+
+		
+
+			if (currentState == GAME) {
+
+				
+				if (e.getKeyCode() == KeyEvent.VK_F) {
+					mario.dash();
+				}
+			}
 
 	}
 
@@ -115,13 +130,16 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 			updateEndState();
 		}
 		// System.out.println("action");
-		System.out.println(FlappyPanel.currentState);
+
 		repaint();
 	}
 
 	void startGame() {
 		pipeSpawn = new Timer(7000, manager);
+		manager.addPipes();
 		pipeSpawn.start();
+		fireballSpawn = new Timer(10000, manager);
+		fireballSpawn.start();
 	}
 
 	void updateMenuState() {
@@ -146,6 +164,19 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Flappy Mario", 40, 50);
 		g.setFont(menuFont);
 		g.drawString("Press ENTER to start", 125, 300);
+		g.drawString("Press SPACE for tutorial", 125, 100);
+
+	}
+
+	void drawTutorialState(Graphics g) {
+		g.setColor(Color.ORANGE);
+		g.fillRect(0, 0, FlappyMario.WIDTH, FlappyMario.HEIGHT);
+		g.setFont(titleFont);
+		g.setColor(Color.YELLOW);
+		g.drawString("TUTORIAL", 40, 50);
+		g.setFont(menuFont);
+		g.drawString("Press SPACE to jump", 125, 300);
+		g.drawString("DON'T GET BURNED", 125, 225);
 
 	}
 
@@ -153,11 +184,16 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		g.drawImage(image, 0, 0, FlappyMario.WIDTH, FlappyMario.HEIGHT, null);
 		manager.draw(g);
 		g.drawString("score:" + manager.getScore(), 100, 100);
+		g.drawString("cooldown" + mario.dashCounter, 400, 700);
+
 	}
 
 	void drawEndState(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, FlappyMario.WIDTH, FlappyMario.HEIGHT);
+		g.setColor(Color.ORANGE);
 
+		g.fillRect(0, 0, FlappyMario.WIDTH, FlappyMario.HEIGHT);
+		g.setColor(Color.BLUE);
+		g.setFont(titleFont);
+		g.drawString("Your final score is " + manager.getScore(), 40, 400);
 	}
 }

@@ -1,8 +1,8 @@
 import java.awt.Rectangle;
 
 public class FlappyObject {
-	int x;
-	int y;
+	double x;
+	double y;
 	int width;
 	int height;
 	Rectangle collisionBox;
@@ -21,6 +21,6 @@ public class FlappyObject {
 	}
 
 	void update() {
-		collisionBox.setBounds(x, y, width, height);
+		collisionBox.setBounds((int) x,(int)  y, width, height);
 	}
 }
