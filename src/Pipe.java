@@ -5,42 +5,53 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Pipe extends FlappyObject {
-	public static BufferedImage image;
+	public static BufferedImage topImage;
+	public static BufferedImage bottomImage;
 	public static boolean needImage = true;
-	public static boolean gotImage = false;	
-	Pipe(int x, int y, int width, int height) {
-		super( x, y, width, height);
+	public static boolean gotImage = false;
+	public boolean isTop;
 
-		
+	Pipe(int x, int y, int width, int height, boolean isTop) {
+		super(x, y, width, height);
+		this.isTop = isTop;
+		System.out.println(isTop);
 		speed = 1;
+
 		if (needImage) {
-		    loadImage ("invertedpipe.jpg");
+			loadImage("topPipe.png");
 		}
-		
+
 	}
+
 	void loadImage(String imageFile) {
-	    if (needImage) {
-	        try {
-	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
-		    gotImage = true;
-	        } catch (Exception e) {
-	            
-	        }
-	        needImage = false;
-	    }
+		if (needImage) {
+			try {
+				topImage = ImageIO.read(this.getClass().getResourceAsStream("pipeTop.png"));
+				bottomImage = ImageIO.read(this.getClass().getResourceAsStream("pipeBottom.png"));
+				gotImage = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			needImage = false;
+		}
 	}
-void update() {
-	x-=speed;
-	super.update();
-}
-void draw(Graphics g) {
-	if (gotImage) {
-		g.drawImage(image, (int) x, (int) y, width, height, null);
-	} else {
-		g.setColor(Color.ORANGE);
-		g.fillRect((int) x, (int) y, width, height);
+
+	void update() {
+		x -= speed;
+		super.update();
 	}
-}
+
+	void draw(Graphics g) {
+		if (gotImage) {
+			if (isTop) {
+				g.drawImage(topImage, (int) x, (int) y, width, height, null);
+			} else {
+				g.drawImage(bottomImage, (int) x, (int) y, width, height, null);
+			}
+		} else {
+			g.setColor(Color.ORANGE);
+			g.fillRect((int) x, (int) y, width, height);
+		}
+	}
 
 }
-

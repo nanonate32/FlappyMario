@@ -29,8 +29,8 @@ Random randy = new Random();
 		int pipeHeight1 = random.nextInt(400) + 100;
 		int pipeHeight2 = pipeHeight1 + 200;
 
-		pipes.add(new Pipe(FlappyMario.WIDTH, 0, 50, pipeHeight1));
-		pipes.add(new Pipe(FlappyMario.WIDTH, pipeHeight2, 50, 1000));
+		pipes.add(new Pipe(FlappyMario.WIDTH, 0, 50, pipeHeight1, true));
+		pipes.add(new Pipe(FlappyMario.WIDTH, pipeHeight2, 50, FlappyMario.HEIGHT - pipeHeight2, false));
 		if (pipeHeight1 > 800 - pipeHeight2) {
 
 		}

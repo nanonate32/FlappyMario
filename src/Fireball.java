@@ -68,7 +68,7 @@ public class Fireball extends FlappyObject {
 		}
 		x += xSpeed + xSpeedMod;
 		y += ySpeed;
-		System.out.println(x + ">" + (xTarget + 200));
+		//System.out.println(x + ">" + (xTarget + 200));
 
 		if (fireballType == 2 && x > xTarget + 200 && hasTurned == false) {
 			System.out.println("turning around");
