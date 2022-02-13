@@ -14,7 +14,6 @@ public class Pipe extends FlappyObject {
 	Pipe(int x, int y, int width, int height, boolean isTop) {
 		super(x, y, width, height);
 		this.isTop = isTop;
-		System.out.println(isTop);
 		speed = 1;
 
 		if (needImage) {

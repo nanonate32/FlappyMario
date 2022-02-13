@@ -61,9 +61,9 @@ public class Mario  extends FlappyObject implements ActionListener  {
 			areDashing = true;
 			canDash = false;
 			
-			dashCounter = 15;
+			dashCounter = 10;
 		}
-		System.out.println("dash");
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -71,13 +71,18 @@ public class Mario  extends FlappyObject implements ActionListener  {
 		dashCounter -=1;
 		if(dashCounter <= 0) {
 			canDash = true;
+			FlappyPanel.dashReady = true;
 			dashCounter = 0;
 		}
-		if(dashCounter == 13) {
+		if(dashCounter == 8) {
 			FlappyManager.setPipeSpeed(1);
 			
 			areDashing = false;
 		}
+		if(dashCounter != 0) {
+			FlappyPanel.dashReady = false;
+		}
+		
 	}
 
 	}

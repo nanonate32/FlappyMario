@@ -26,8 +26,8 @@ public class Fireball extends FlappyObject {
 			loadImage("fireball.png");
 
 		}
-		fireballType = 2;
-//fireballType = new Random().nextInt(3);
+		
+fireballType = new Random().nextInt(3);
 		if (fireballType == 0) {
 			xSpeed = new Random().nextInt(5) + 2;
 			ySpeed = 0;
