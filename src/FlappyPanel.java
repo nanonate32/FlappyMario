@@ -16,7 +16,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
-	public static boolean dashReady = true;
+	
 	boolean shotFired = false;
 	FlappyManager manager;
 	Mario mario;
@@ -95,23 +95,19 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (currentState == MENU ) {
+			if (currentState == MENU) {
 				currentState = TUTORIAL;
 			} else {
 				mario.velocity = -10;
 			}
 		}
 
-		
+		if (currentState == GAME) {
 
-			if (currentState == GAME) {
-				
-       
-				
-				if (e.getKeyCode() == KeyEvent.VK_F) {
-					mario.dash();
-				}
+			if (e.getKeyCode() == KeyEvent.VK_F) {
+				mario.dash();
 			}
+		}
 
 	}
 
@@ -137,11 +133,19 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
+		FlappyManager.pipes.clear();
+		FlappyManager.fireballs.clear();
 		pipeSpawn = new Timer(7000, manager);
 		manager.addPipes();
 		pipeSpawn.start();
 		fireballSpawn = new Timer(10000, manager);
 		fireballSpawn.start();
+		mario.dashCounter = 0;
+		manager.setScore(0);
+		mario = new Mario(250, 200, 50, 50);
+		FlappyManager.mario = mario;
+		
+		
 	}
 
 	void updateMenuState() {
@@ -181,7 +185,6 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("DON'T GET BURNED", 125, 225);
 		g.drawString("Press ENTER to start", 125, 150);
 		g.drawString("Press F to dash", 125, 375);
-		
 
 	}
 
@@ -189,11 +192,10 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		g.drawImage(image, 0, 0, FlappyMario.WIDTH, FlappyMario.HEIGHT, null);
 		manager.draw(g);
 		g.drawString("score:" + manager.getScore(), 100, 100);
-		if(dashReady == true) {
+		if (mario.canDash == true) {
 			g.drawString("Dash ready", 400, 700);
-		}
-		else {
-		g.drawString("cooldown" + mario.dashCounter, 400, 700);
+		} else {
+			g.drawString("cooldown" + mario.dashCounter, 400, 700);
 		}
 	}
 
@@ -204,5 +206,7 @@ public class FlappyPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLUE);
 		g.setFont(titleFont);
 		g.drawString("Your final score is " + manager.getScore(), 40, 400);
+		g.setFont(menuFont);
+		g.drawString("Press ENTER to return to menu", 40, 500);
 	}
 }

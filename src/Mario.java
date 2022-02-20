@@ -71,7 +71,7 @@ public class Mario  extends FlappyObject implements ActionListener  {
 		dashCounter -=1;
 		if(dashCounter <= 0) {
 			canDash = true;
-			FlappyPanel.dashReady = true;
+			
 			dashCounter = 0;
 		}
 		if(dashCounter == 8) {
@@ -79,9 +79,7 @@ public class Mario  extends FlappyObject implements ActionListener  {
 			
 			areDashing = false;
 		}
-		if(dashCounter != 0) {
-			FlappyPanel.dashReady = false;
-		}
+		
 		
 	}
 

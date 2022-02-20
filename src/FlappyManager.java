@@ -90,10 +90,10 @@ Random randy = new Random();
 
 		}
 
-		for (int i = 0; i < pipes.size(); i++) {
+		for (int i = 0; i < fireballs.size(); i++) {
 
-			if (pipes.get(i).isActive == false) {
-				pipes.remove(i);
+			if (fireballs.get(i).isActive == false) {
+				fireballs.remove(i);
 
 			}
 
@@ -143,6 +143,10 @@ Random randy = new Random();
 
 	public int getScore() {
 		return score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	
